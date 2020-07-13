@@ -18,3 +18,4 @@ The solution is not perfect and I bet there is much better one out there.
 
 * adaptive thresholding raised an assertion error in the case with HSV colorspace
 ```cv2.error: OpenCV(4.2.0) /io/opencv/modules/imgproc/src/thresh.cpp:1647: error: (-215:Assertion failed) src.type() == CV_8UC1 in function 'adaptiveThreshold'```
+* writing a video to a file producted corrupted video ```An error occured: could not demultiplex stream```. I will not delete it for now as it might be Linux specific issue (or it might not)

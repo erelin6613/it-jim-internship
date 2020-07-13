@@ -6,7 +6,27 @@ from matplotlib import pyplot as plt
 
 video_path = 'input_video.avi'
 
-def read_video(path):
+
+def read_video(path, write_output=False, out_file=None):
+
+	if write_output and out_file is not None:
+		cap = cv2.VideoCapture(path)
+		ret, frm = cap.read()
+		frm_count = 0
+
+		fourcc = cv2.VideoWriter_fourcc(*"XVID")
+		width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+		height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+
+		fps = 30
+		image_size = (width, height)
+		writer = cv2.VideoWriter(out_file, fourcc, fps, image_size)
+		cap.release()
+
+	elif write_output and out_file is not None:
+		raise Exception('`out_file` needed to wite a video')
+
+
 
 	cap = cv2.VideoCapture(path)
 	frm_count = 0
@@ -18,6 +38,8 @@ def read_video(path):
 			cv2.imshow('original', shot)
 			shot = calculate_shot(shot, strategy='color-decompose')
 			cv2.imshow('mask', shot)
+			if write_output:
+				writer.write(shot)
 		else:
 			break
 
@@ -28,6 +50,8 @@ def read_video(path):
 		key = cv2.waitKey(wait_period)
 
 	cap.release()
+	if write_output:
+		writer.release()
 	cv2.destroyAllWindows()
 
 def calculate_shot(shot, 
@@ -75,4 +99,9 @@ def calculate_shot(shot,
 
 
 if __name__ == '__main__':
+	# uncomment to write a video
+	# WARNING: on my system it produced
+	# corrupted file
+
+	# read_video(video_path, True, 'mask.avi')
 	read_video(video_path)
