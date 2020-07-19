@@ -39,7 +39,7 @@ def read_video(path, write_output=False, out_file=None):
 			shot = calculate_shot(shot, strategy='color-decompose')
 			cv2.imshow('mask', shot)
 			if write_output:
-				writer.write(shot)
+				writer.write(cv2.cvtColor(shot, c2.COLOR_GRAY2BGR))
 		else:
 			break
 
@@ -89,7 +89,7 @@ def calculate_shot(shot,
 	if strategy == 'color-decompose':
 		b = shot[:,:,0]
 		g = shot[:,:,1]
-		r = shot[:,:,1]
+		r = shot[:,:,2]
 		_, b = cv2.threshold(b, 170, 255, cv2.THRESH_BINARY_INV)
 		_, g = cv2.threshold(g, 170, 255, cv2.THRESH_BINARY_INV)
 		_, r = cv2.threshold(r, 170, 255, cv2.THRESH_BINARY_INV)
