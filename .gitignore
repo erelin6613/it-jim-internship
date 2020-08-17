@@ -5,3 +5,5 @@
 *.zip
 *.jpeg
 *.jpg
+*.pth
+*.h5
