@@ -7,3 +7,6 @@
 *.jpg
 *.pth
 *.h5
+Task8/task8_env/
+Task8/data/
+*.ckpt
